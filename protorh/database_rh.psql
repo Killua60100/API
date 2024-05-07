@@ -1,0 +1,40 @@
+CREATE TABLE "Event" (
+    ID serial PRIMARY KEY,
+    Name varchar(255),
+    Date date,
+    Description text,
+    UserID int REFERENCES "User"(ID),
+    DepartmentID int REFERENCES "Department"(ID)
+);
+
+CREATE TABLE "User" (
+    ID serial PRIMARY KEY,
+    Email varchar(255) NOT NULL,
+    Password varchar(255) NOT NULL,
+    Firstname varchar(255),
+    Lastname varchar(255),
+    BirthdayDate date,
+    Address varchar(255),
+    PostalCode varchar(10),
+    Age int,
+    Meta json,
+    RegistrationDate date,
+    Token varchar(255),
+    Role varchar(50)
+);
+
+CREATE TABLE "Department" (
+    ID serial PRIMARY KEY,
+    Name varchar(255) NOT NULL
+);
+
+CREATE TABLE “RequestRH” (
+    ID serial PRIMARY KEY,
+    UserID int REFERENCES “User”(ID),
+    Content text,
+    RegistrationDate date,
+    Visibility boolean,
+    Close boolean,
+    LastAction date,
+    ContentHistory jsonb[]
+);
